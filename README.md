@@ -1,13 +1,14 @@
-# SOTC Account Journey Automation
+# SOTC Playwright Automation Portfolio
 
-Portfolio-ready Playwright + TypeScript automation for the public SOTC account experience at `https://www.sotc.in/MyAccount`.
+Portfolio-ready Playwright + TypeScript automation for public SOTC account and enquiry-form experiences.
 
-This project covers the core customer account flow with a Page Object Model, environment-driven test data, failure diagnostics, Playwright HTML reporting, and Allure reporting.
+This project covers the core customer account flow and a live honeymoon campaign enquiry form with a Page Object Model, environment-driven test data, failure diagnostics, Playwright HTML reporting, and Allure reporting.
 
 ## What This Project Tests
 
 - New customer sign-up on the SOTC account page
 - Existing customer login journey for the live public flow
+- Campaign enquiry form coverage on the Manali honeymoon page
 - Stable post-action verification with screenshots and traces
 
 ## Live Behavior Note
@@ -20,6 +21,12 @@ Because of that live product behavior, the suite currently validates:
 - `sotc-login.spec.ts`: an existing user can successfully start the live OTP login journey
 
 The page object still keeps password-path handling in place so the suite can be extended easily if SOTC re-enables it for customer accounts.
+
+## Honeymoon Form Note
+
+During live verification on **June 1, 2026**, the Manali honeymoon page at `https://www.sotc.in/india-honeymoon/manali-honeymoon-packages` exposed a small enquiry form with stable field IDs for first name, last name, mobile, email, product, description, privacy consent, and submit.
+
+The live campaign script currently still references a missing legacy `#full_name` field and only raises an alert for privacy consent instead of blocking submit. The form suite documents those behaviors honestly and uses a small compatibility shim plus a mocked CRM endpoint for the valid-path test so the front-end contract can be verified without creating real lead noise.
 
 ## Tech Stack
 
@@ -44,11 +51,14 @@ The page object still keeps password-path handling in place so the suite can be 
 ```text
 pages/
   SotcAccountPage.ts
+  SotcHoneymoonEnquiryPage.ts
 tests/
   sotc-signup.spec.ts
   sotc-login.spec.ts
+  sotc-honeymoon-form.spec.ts
 utils/
   sotcAccountTestData.ts
+  sotcHoneymoonFormData.ts
 playwright.config.ts
 package.json
 ```
@@ -62,6 +72,10 @@ package.json
 ### OTP login journey
 
 ![SOTC OTP login journey](./docs/login-otp-requested.png)
+
+### Honeymoon enquiry form
+
+![SOTC honeymoon enquiry form](./docs/honeymoon-form-success.png)
 
 ## Setup
 
@@ -87,6 +101,7 @@ Optional variables:
 
 - `SOTC_BASE_URL`
 - `SOTC_ACCOUNT_URL`
+- `SOTC_HONEYMOON_FORM_URL`
 - `SOTC_TEST_FIRST_NAME`
 - `SOTC_TEST_LAST_NAME`
 - `SOTC_TEST_EMAIL`
@@ -118,6 +133,7 @@ Run individual specs:
 ```powershell
 npm run test:sotc-signup
 npm run test:sotc-login
+npm run test:sotc-honeymoon-form
 ```
 
 ## Reports

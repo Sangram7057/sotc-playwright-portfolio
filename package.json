@@ -5,9 +5,10 @@
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
-    "test:sotc": "playwright test tests/sotc-signup.spec.ts tests/sotc-login.spec.ts",
+    "test:sotc": "playwright test tests/sotc-signup.spec.ts tests/sotc-login.spec.ts tests/sotc-honeymoon-form.spec.ts",
     "test:sotc-signup": "playwright test tests/sotc-signup.spec.ts",
     "test:sotc-login": "playwright test tests/sotc-login.spec.ts",
+    "test:sotc-honeymoon-form": "playwright test tests/sotc-honeymoon-form.spec.ts",
     "allure:generate": "allure generate ./allure-results --clean -o ./allure-report",
     "allure:open": "allure open ./allure-report",
     "allure:serve": "allure serve ./allure-results"
